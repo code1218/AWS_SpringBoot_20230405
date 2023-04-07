@@ -10,6 +10,10 @@ public class ResponseDto {
 	private final int code;
 	private final String message;
 	
+	public static ResponseDto ofDefault() {
+		return new ResponseDto(true, 200, "Successfully");
+	}
+	
 	public static ResponseDto of(boolean success, int code, String message) {
 		return new ResponseDto(success, code, message);
 	}
