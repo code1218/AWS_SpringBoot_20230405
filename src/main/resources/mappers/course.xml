@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.web.study.repository.CourseRepository">
+	
+	<resultMap type="com.web.study.domain.entity.Lecture" id="lecture">
+		<result column="id" property="id"/>
+		<result column="lecture_name" property="lecture_name"/>
+		<result column="lecture_price" property="lecture_price"/>
+		<result column="lecturer_id" property="lecturer_id"/>
+	</resultMap>
+	
+	<resultMap type="com.web.study.domain.entity.Student" id="student">
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="birth_date" property="birth_date"/>
+	</resultMap>
+	
+	<resultMap type="com.web.study.domain.entity.Course" id="course">
+		<result column="id" property="id"/>
+		<result column="lecture_id" property="lecture_id"/>
+		<result column="student_id" property="student_id"/>
+		<result column="registe_date" property="registe_date"/>
+		<collection property="lecture" resultMap="lecture"></collection>
+		<collection property="student" resultMap="student"></collection>
+	</resultMap>
+	
+	<insert id="saveCourse" parameterType="Course">
+		insert into course_mst
+		values (0, #{lecture_id}, #{student_id}, #{registe_date})
+	</insert>
+	
+	<select id="getCourseAll" resultType="Course">
+		select
+			cm.id,
+			cm.lecture_id,
+			cm.student_id,
+			cm.registe_date,
+			lm.id,
+			lm.lecture_name,
+			lm.lecture_price,
+			lm.lecturer_id,
+			lrm.id,
+			lrm.name,
+			lrm.birth_date,
+			sm.id,
+			sm.name,
+			sm.birth_date
+		from
+			course_mst cm
+			left outer join lecture_mst lm on(lm.id = cm.lecture_id)
+			left outer join lecturer_mst lrm on(lrm.id = lm.lecturer_id)
+			left outer join student_mst sm on(sm.id = cm.student_id)
+	</select>
+</mapper>
+
+
+
+
+

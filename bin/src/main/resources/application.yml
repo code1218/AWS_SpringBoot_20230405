@@ -6,6 +6,5 @@ spring:
     password: root
 
 mybatis:
-  type-aliases-package: com.web.study.domain.entity
   mapper-locations:
     - /mappers/*.xml
