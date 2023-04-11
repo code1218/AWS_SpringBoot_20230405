@@ -8,8 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Lecture {
-	private int id;
-	private String lecture_name;
-	private int lecture_price;
-	private int lecturer_id;
+	private int ltm_id;
+	private String ltm_name;
+	private int ltm_price;
+	private int itm_id;
 }

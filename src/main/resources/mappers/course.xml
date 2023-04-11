@@ -9,7 +9,7 @@
 		<result column="id" property="id"/>
 		<result column="lecture_name" property="lecture_name"/>
 		<result column="lecture_price" property="lecture_price"/>
-		<result column="lecturer_id" property="lecturer_id"/>
+		<result column="instructor_id" property="instructor_id"/>
 	</resultMap>
 	
 	<resultMap type="com.web.study.domain.entity.Student" id="student">
@@ -41,7 +41,7 @@
 			lm.id,
 			lm.lecture_name,
 			lm.lecture_price,
-			lm.lecturer_id,
+			lm.instructor_id,
 			lrm.id,
 			lrm.name,
 			lrm.birth_date,
@@ -51,7 +51,7 @@
 		from
 			course_mst cm
 			left outer join lecture_mst lm on(lm.id = cm.lecture_id)
-			left outer join lecturer_mst lrm on(lrm.id = lm.lecturer_id)
+			left outer join instructor_mst lrm on(lrm.id = lm.instructor_id)
 			left outer join student_mst sm on(sm.id = cm.student_id)
 	</select>
 </mapper>
