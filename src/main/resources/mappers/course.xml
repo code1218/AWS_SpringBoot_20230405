@@ -6,22 +6,29 @@
 <mapper namespace="com.web.study.repository.CourseRepository">
 	
 	<resultMap type="com.web.study.domain.entity.Lecture" id="lecture">
-		<result column="id" property="id"/>
-		<result column="lecture_name" property="lecture_name"/>
-		<result column="lecture_price" property="lecture_price"/>
-		<result column="instructor_id" property="instructor_id"/>
+		<id column="ltm_id" property="ltm_id"/>
+		<result column="ltm_name" property="ltm_name"/>
+		<result column="ltm_price" property="ltm_price"/>
+		<result column="itm_id" property="itm_id"/>
+		<collection property="instructor" resultMap="instructor"></collection>
+	</resultMap>
+	
+	<resultMap type="com.web.study.domain.entity.Instructor" id="instructor">
+		<id column="itm_id" property="itm_id"/>
+		<result column="itm_name" property="itm_name"/>
+		<result column="itm_birth" property="itm_birth"/>
 	</resultMap>
 	
 	<resultMap type="com.web.study.domain.entity.Student" id="student">
-		<result column="id" property="id"/>
-		<result column="name" property="name"/>
-		<result column="birth_date" property="birth_date"/>
+		<id column="sdm_id" property="sdm_id"/>
+		<result column="sdm_name" property="sdm_name"/>
+		<result column="sdm_birth" property="sdm_birth"/>
 	</resultMap>
 	
 	<resultMap type="com.web.study.domain.entity.Course" id="course">
-		<result column="id" property="id"/>
-		<result column="lecture_id" property="lecture_id"/>
-		<result column="student_id" property="student_id"/>
+		<id column="csm_id" property="csm_id"/>
+		<result column="ltm_id" property="ltm_id"/>
+		<result column="sdm_id" property="sdm_id"/>
 		<result column="registe_date" property="registe_date"/>
 		<collection property="lecture" resultMap="lecture"></collection>
 		<collection property="student" resultMap="student"></collection>
@@ -29,30 +36,30 @@
 	
 	<insert id="saveCourse" parameterType="Course">
 		insert into course_mst
-		values (0, #{lecture_id}, #{student_id}, #{registe_date})
+		values (0, #{ltm_id}, #{sdm_id}, #{registe_date})
 	</insert>
 	
-	<select id="getCourseAll" resultType="Course">
+	<select id="getCourseAll" resultMap="course">
 		select
-			cm.id,
-			cm.lecture_id,
-			cm.student_id,
+			cm.csm_id,
+			cm.ltm_id,
+			cm.sdm_id,
 			cm.registe_date,
-			lm.id,
-			lm.lecture_name,
-			lm.lecture_price,
-			lm.instructor_id,
-			lrm.id,
-			lrm.name,
-			lrm.birth_date,
-			sm.id,
-			sm.name,
-			sm.birth_date
+			lm.ltm_id,
+			lm.ltm_name,
+			lm.ltm_price,
+			lm.itm_id,
+			im.itm_id,
+			im.itm_name,
+			im.itm_birth,
+			sm.sdm_id,
+			sm.sdm_name,
+			sm.sdm_birth
 		from
 			course_mst cm
-			left outer join lecture_mst lm on(lm.id = cm.lecture_id)
-			left outer join instructor_mst lrm on(lrm.id = lm.instructor_id)
-			left outer join student_mst sm on(sm.id = cm.student_id)
+			left outer join lecture_mst lm on(lm.ltm_id = cm.ltm_id)
+			left outer join instructor_mst im on(im.itm_id = lm.itm_id)
+			left outer join student_mst sm on(sm.sdm_id = cm.sdm_id)
 	</select>
 </mapper>
 

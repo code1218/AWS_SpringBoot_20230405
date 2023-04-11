@@ -7,27 +7,27 @@
 
 	<insert id="saveInstructor" parameterType="Instructor">
 		insert into instructor_mst
-		values (0, #{name}, #{birth_date})
+		values (0, #{itm_name}, #{itm_birth})
 	</insert>
 
 	<select id="getInstructorAll" resultType="Instructor">
 		select
-			id,
-			name,
-			birth_date
+			itm_id,
+			itm_name,
+			itm_birth
 		from
 			instructor_mst
 	</select>
 	
 	<select id="findInstructorById" parameterType="Integer" resultType="Instructor">
 		select
-			id,
-			name,
-			birth_date
+			itm_id,
+			itm_name,
+			itm_birth
 		from
 			instructor_mst
 		where
-			id = #{id}
+			itm_id = #{id}
 	</select>
 
 </mapper>

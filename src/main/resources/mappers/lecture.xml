@@ -7,7 +7,7 @@
 	
 	<insert id="registe" parameterType="com.web.study.domain.entity.Lecture">
 		insert into lecture_mst
-		values (0, #{lecture_name}, #{lecture_price}, #{instructor_id})
+		values (0, #{ltm_name}, #{ltm_price}, #{itm_id})
 	</insert>
 	
 	
