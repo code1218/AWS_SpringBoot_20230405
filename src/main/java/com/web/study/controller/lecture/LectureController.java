@@ -31,8 +31,6 @@ public class LectureController {
 	
 	@GetMapping("/search/lectures")
 	public ResponseEntity<? extends ResponseDto> searchLecture(int type, String searchValue) {
-		System.out.println(type);
-		System.out.println(searchValue);
 		return ResponseEntity.ok().body(DataResponseDto.of(lectureService.searchLecture(type, searchValue)));
 	}
 	
